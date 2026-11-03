@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import toast, { Toaster } from 'react-hot-toast';
 import ReactPaginateModule from 'react-paginate';
 import type { ReactPaginateProps } from 'react-paginate';
@@ -29,10 +29,11 @@ export default function App() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const { data, isPending, isError } = useQuery({
-    queryKey: ['movies', query, page],
-    queryFn: () => fetchMovies(query, page),
-    enabled: query.length > 0,
-  });
+  queryKey: ['movies', query, page],
+  queryFn: () => fetchMovies(query, page),
+  enabled: query.length > 0,
+  placeholderData: keepPreviousData,
+});
 
   const movies = data?.results ?? [];
   const totalPages = data?.total_pages ?? 0;
