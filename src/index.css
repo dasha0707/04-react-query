@@ -1,0 +1,7 @@
+@import 'modern-normalize/modern-normalize.css';
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: Arial, sans-serif;
+}
